@@ -64,3 +64,45 @@ void MainWindow::on_lessonTwoButtonResult_clicked()
 }
 
 //=========================================================================
+
+//==============================TASK 3=====================================
+
+void MainWindow::on_movePushButton_clicked()
+{
+    QString str1 = ui->firstTextEdit->toPlainText();
+    QString str2 = ui->secondTextEdit->toPlainText();
+    ui->secondTextEdit->setText(str2 + str1);
+    ui->firstTextEdit->clear();
+}
+
+
+void MainWindow::on_replacePushButton_clicked()
+{
+    QString str2 = ui->secondTextEdit->toPlainText();
+    ui->firstTextEdit->setText(str2);
+}
+
+// Знаю, что это не совсем то, что надо по заданию, я подумал это интереснее =)
+void MainWindow::on_randomPushButton_clicked()
+{
+    QString str = ui->firstTextEdit->toPlainText();
+    int rdm = rand() % 70;
+
+        qDebug() << rdm;
+
+    if (rdm <= 10)
+        ui->firstTextEdit->setHtml("<b>" + str + "<b>");
+    else if (rdm > 10 && rdm <= 20)
+        ui->firstTextEdit->setHtml("<i>" + str + "<i>");
+    else if (rdm > 20 && rdm <= 30)
+        ui->firstTextEdit->setHtml("<font color='red'>" + str + "</font>");
+    else if (rdm > 30 && rdm <= 40)
+        ui->firstTextEdit->setHtml("<font face='Times New Roman'>" + str + "</font>");
+    else if (rdm > 40 && rdm <= 50)
+        ui->firstTextEdit->setHtml("<font size = 20>" + str + "</font>");
+    else if (rdm > 50 && rdm <= 60)
+        ui->firstTextEdit->setHtml("<sup>" + str + "<sup>");
+    else if (rdm > 60 && rdm <= 70)
+        ui->firstTextEdit->setHtml("<sub>" + str + "<sub>");
+}
+

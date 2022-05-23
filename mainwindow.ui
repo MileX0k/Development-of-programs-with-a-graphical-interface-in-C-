@@ -84,6 +84,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Segoe UI</family>
       <pointsize>11</pointsize>
      </font>
     </property>
@@ -389,6 +390,101 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QTextEdit" name="firstTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>320</y>
+      <width>191</width>
+      <height>71</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="secondTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>420</y>
+      <width>191</width>
+      <height>71</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="thirdLesson">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>330</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>16</pointsize>
+      <bold>true</bold>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lesson 3:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="movePushButton">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>340</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Преместить</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="replacePushButton">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>390</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Заменить</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="randomPushButton">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>440</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Рандомная вставка</string>
+    </property>
+   </widget>
    <zorder>firstLesson</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
@@ -412,6 +508,12 @@
    <zorder>buttonDegrees</zorder>
    <zorder>buttonRadians</zorder>
    <zorder>lessonTwoValueAnswer</zorder>
+   <zorder>firstTextEdit</zorder>
+   <zorder>secondTextEdit</zorder>
+   <zorder>thirdLesson</zorder>
+   <zorder>movePushButton</zorder>
+   <zorder>replacePushButton</zorder>
+   <zorder>randomPushButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

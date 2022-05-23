@@ -21,6 +21,12 @@ private slots:
 
     void on_lessonTwoButtonResult_clicked();
 
+    void on_movePushButton_clicked();
+
+    void on_replacePushButton_clicked();
+
+    void on_randomPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
