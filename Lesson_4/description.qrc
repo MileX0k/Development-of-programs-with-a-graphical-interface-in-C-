@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Description.txt</file>
+    </qresource>
+</RCC>
