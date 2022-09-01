@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>printer.png</file>
+        <file>saver.png</file>
+        <file>new_filer.png</file>
+        <file>opener.png</file>
+        <file>alignmentCentr.png</file>
+        <file>alignmentLeft.png</file>
+        <file>alignmentRight.png</file>
+        <file>alignmentWidth.png</file>
+        <file>formating.png</file>
+    </qresource>
+</RCC>

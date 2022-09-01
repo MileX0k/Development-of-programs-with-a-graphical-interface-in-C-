@@ -9,6 +9,12 @@ MainWindow::MainWindow(QWidget *parent)
     translator = new QTranslator(this);
     qApp->installTranslator(translator);
 
+    ui->plainTextEdit->setFocus();
+    createMenu();
+}
+
+void MainWindow::createMenu()
+{
     QMenu *menu = menuBar()->addMenu(tr("Файл"));
 
     QAction *newFileActionMenu = menu->addAction(tr("Новый файл"));
@@ -88,22 +94,19 @@ void MainWindow::on_openButton_clicked()
     }
 }
 
-void MainWindow::on_descriptionButton_pressed()
+void MainWindow::on_descriptionButton_clicked()
 {
-    textCopiedBeforeHelp = ui->plainTextEdit->toPlainText();
+    description = new QTextEdit;
+    description->setWindowTitle(tr("Справка"));
+    description->setReadOnly(true);
     QString s = "://Description.txt";
     QFile file(s);
     if (file.open(QFile::ReadOnly)) {
         QTextStream stream(&file);
-        ui->plainTextEdit->appendPlainText(stream.readAll());
+        description->setPlainText(stream.readAll());
         file.close();
     }
-}
-
-void MainWindow::on_descriptionButton_released()
-{
-    ui->plainTextEdit->clear();
-    ui->plainTextEdit->insertPlainText(textCopiedBeforeHelp);
+    description->show();
 }
 
 void MainWindow::changeTranslator(QString postfix)
@@ -173,8 +176,6 @@ void MainWindow::changeEvent(QEvent *event)
     if (event->type() == QEvent::LanguageChange) {
         setWindowTitle(tr("Главное окно"));
         ui->descriptionButton->setText(tr("Справка"));
-        ui->saveButton->setText(tr("Сохранить"));
-        ui->openButton->setText(tr("Открыть"));
         ui->radioButtonOnlyRead->setText(tr("Только для чтения"));
         ui->descriptionButton->setToolTip(tr("Нажмите для подсказки"));
         ui->comboBoxLanguages->setItemText(0, tr("Русский"));
@@ -183,8 +184,6 @@ void MainWindow::changeEvent(QEvent *event)
         ui->radioButtonDarkTheme->setText(tr("Темная тема"));
     } else QMainWindow::changeEvent(event);
 }
-
-
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
 
@@ -232,4 +231,74 @@ void MainWindow::on_radioButtonDarkTheme_clicked()
 void MainWindow::on_radioButtonLightTheme_clicked()
 {
     qApp->setStyleSheet("");
+}
+
+void MainWindow::on_printButton_clicked()
+{
+    printText();
+}
+
+void MainWindow::on_newFileButton_clicked()
+{
+    createNewDoc();
+}
+
+void MainWindow::on_leftAligmentButton_clicked()
+{
+    ui->plainTextEdit->setAlignment(Qt::AlignLeft);
+    ui->plainTextEdit->setFocus();
+}
+
+void MainWindow::on_centralAligmentButton_clicked()
+{
+    ui->plainTextEdit->setAlignment(Qt::AlignCenter);
+    ui->plainTextEdit->setFocus();
+}
+
+void MainWindow::on_rightAligmentButton_clicked()
+{
+    ui->plainTextEdit->setAlignment(Qt::AlignRight);
+    ui->plainTextEdit->setFocus();
+}
+
+void MainWindow::on_widthAligmentButton_clicked()
+{
+    ui->plainTextEdit->setAlignment(Qt::AlignJustify);
+    ui->plainTextEdit->setFocus();
+}
+
+void MainWindow::on_fontComboBox_currentFontChanged(const QFont &f)
+{
+    QTextCharFormat format;
+    format.setFont(f);
+    if(ui->plainTextEdit->textCursor().hasSelection())
+    {
+        ui->plainTextEdit->textCursor().setCharFormat(format);
+    }else
+    {
+        ui->plainTextEdit->setCurrentCharFormat(format);
+    }
+    ui->plainTextEdit->setFocus();
+}
+
+void MainWindow::on_sizeFontBox_valueChanged(int arg1)
+{
+    ui->plainTextEdit->setFontPointSize(arg1);
+}
+
+void MainWindow::on_plainTextEdit_cursorPositionChanged()
+{
+    QTextCursor cursor = ui->plainTextEdit->textCursor();
+    if(!cursor.hasSelection())
+        ui->fontComboBox->setCurrentIndex(ui->fontComboBox->findText(QFontInfo(cursor.charFormat().font()).family()));
+    ui->sizeFontBox->setValue(cursor.charFormat().font().pointSize());
+
+    if (ui->plainTextEdit->alignment() == Qt::AlignmentFlag::AlignCenter)
+        ui->centralAligmentButton->setChecked(true);
+    else if (ui->plainTextEdit->alignment() == Qt::AlignmentFlag::AlignLeft)
+        ui->leftAligmentButton->setChecked(true);
+    else if (ui->plainTextEdit->alignment() == Qt::AlignmentFlag::AlignRight)
+        ui->rightAligmentButton->setChecked(true);
+    else if (ui->plainTextEdit->alignment() == Qt::AlignmentFlag::AlignJustify)
+        ui->widthAligmentButton->setChecked(true);
 }

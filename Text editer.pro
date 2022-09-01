@@ -24,8 +24,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    Icons/Icons.qrc \
     description.qrc
 
  TRANSLATIONS += QtLanguage_en.ts
 
  CODECFORSRC = UTF-8
+
+DISTFILES += \
+    Icons/printer-1011-870349.png
