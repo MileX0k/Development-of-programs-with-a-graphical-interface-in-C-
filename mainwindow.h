@@ -10,6 +10,8 @@
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QPainter>
+#include <QTextEdit>
+#include <QLineEdit>
 
 #include <QMessageBox>
 
@@ -31,12 +33,21 @@ public:
 private slots:
     void on_saveButton_clicked();
     void on_openButton_clicked();
-    void on_descriptionButton_pressed();
-    void on_descriptionButton_released();
+    void on_descriptionButton_clicked();
     void on_radioButtonOnlyRead_clicked(bool checked);
     void on_comboBoxLanguages_currentIndexChanged(int index);
     void on_radioButtonDarkTheme_clicked();
     void on_radioButtonLightTheme_clicked();
+    void on_printButton_clicked();
+    void on_newFileButton_clicked();
+    void on_leftAligmentButton_clicked();
+    void on_centralAligmentButton_clicked();
+    void on_rightAligmentButton_clicked();
+    void on_widthAligmentButton_clicked();
+    void on_fontComboBox_currentFontChanged(const QFont &f);
+    void on_sizeFontBox_valueChanged(int arg1);
+    void on_plainTextEdit_cursorPositionChanged();
+    void on_formatButton_clicked();
 
 protected:
     void changeEvent(QEvent * event) override;
@@ -47,12 +58,15 @@ private:
     Ui::MainWindow *ui;
     QTranslator *translator;
     QKeyEvent *keyboard;
-    QString textCopiedBeforeHelp;
+    QTextEdit *description;
+    QTextCharFormat frm;
 
 private:
     void changeTranslator(QString postfix);
     bool warningWindow();
     void closeFile();
     void printText();
+    void createMenu();
+    void setFontToText(QTextCharFormat form);
 };
 #endif // MAINWINDOW_H
