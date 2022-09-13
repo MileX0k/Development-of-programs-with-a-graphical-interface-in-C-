@@ -591,6 +591,46 @@ border-color: rgb(0, 0, 0);</string>
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="calendarButton">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>5</y>
+      <width>27</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/calendar.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
    <zorder>widget_3</zorder>
    <zorder>descriptionButton</zorder>
    <zorder>radioButtonOnlyRead</zorder>
@@ -602,6 +642,7 @@ border-color: rgb(0, 0, 0);</string>
    <zorder>plainTextEdit</zorder>
    <zorder>line_2</zorder>
    <zorder>line_3</zorder>
+   <zorder>calendarButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
