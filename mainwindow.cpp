@@ -113,7 +113,7 @@ void MainWindow::changeTranslator(QString postfix)
 {
     QApplication::removeTranslator(translator);
     translator = new QTranslator(this);
-    static_cast<void>(translator->load("D:/Qt projects/Lesson_5/QtLanguage_" + postfix));
+    static_cast<void>(translator->load("D:/Qt projects/Text editer/QtLanguage_" + postfix));
     QApplication::installTranslator(translator);
 }
 
@@ -302,3 +302,23 @@ void MainWindow::on_plainTextEdit_cursorPositionChanged()
     else if (ui->plainTextEdit->alignment() == Qt::AlignmentFlag::AlignJustify)
         ui->widthAligmentButton->setChecked(true);
 }
+
+//=====================TODO==================
+
+void MainWindow::on_calendarButton_clicked()
+{
+    QDateTime dataTime = QDateTime::currentDateTime();
+    QTime currTime = dataTime.time();
+    QDate currDate = dataTime.date();
+    const QString month[] = {"", " января " , " февраля ", " марта ",
+    " апреля ", " мая ", " июня ",
+    " июля ", " августа ", " сентября ",
+    " октября ", " ноября ", " декабря ",
+    };
+    QString currentDateTime = { "(" + QString::number(currTime.hour()) + ":" +  QString::number(currTime.minute()) + " " +
+                              QString::number(currDate.day()) + " " + month[currDate.month()] +" " + QString::number(currDate.year()) + ")"};
+    QTextCursor cursor = ui->plainTextEdit->textCursor();
+    cursor.insertText(currentDateTime);
+
+}
+

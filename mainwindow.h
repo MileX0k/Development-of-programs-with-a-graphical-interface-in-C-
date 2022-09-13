@@ -12,6 +12,7 @@
 #include <QPainter>
 #include <QTextEdit>
 #include <QLineEdit>
+#include <QDateTime>
 
 #include <QMessageBox>
 
@@ -47,7 +48,8 @@ private slots:
     void on_fontComboBox_currentFontChanged(const QFont &f);
     void on_sizeFontBox_valueChanged(int arg1);
     void on_plainTextEdit_cursorPositionChanged();
-    void on_formatButton_clicked();
+
+    void on_calendarButton_clicked();
 
 protected:
     void changeEvent(QEvent * event) override;

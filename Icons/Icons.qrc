@@ -9,5 +9,6 @@
         <file>alignmentRight.png</file>
         <file>alignmentWidth.png</file>
         <file>formating.png</file>
+        <file>calendar.png</file>
     </qresource>
 </RCC>
