@@ -1,9 +1,10 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 2.5
+import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.2
 
 Window {
     id: root
@@ -19,7 +20,7 @@ Window {
         anchors.top: root.top
         width: root.width
         height: root.height - rectText.height
-        color: '#2AABEE'
+        color: '#daad86'//'#2AABEE'
         border.color: 'darkblue'
         ListView
         {
@@ -31,28 +32,47 @@ Window {
             anchors.margins: defMargin / 2
             spacing: defMargin
             ScrollBar.vertical: ScrollBar{}
-
             model: listModel1
+
             delegate: Rectangle
             {
                 id: rectElement
                 width: listTasks.width
                 height: 100
-                radius: 10
-                color: '#229ED9'
-                border.color: 'darkblue'
-                TextEdit
+                radius: defMargin
+                color: '#bc986a'
+                border.color: '#8d8741'
+                Flickable
                 {
-                    id: textElement
-                    anchors.left: rectElement.left
-                    anchors.right: rectElement.right
-                    anchors.top: rectElement.top
-                    anchors.bottom: panelButtons.top
-                    font.pointSize: 11
-                    textMargin: defMargin
-                    wrapMode: TextEdit.Wrap
-                    selectByMouse: true
-                    text: model.text
+                    id: flick2
+                    width: rectElement.width
+                    height: rectElement.height / 2
+                    contentWidth: textElement.paintedWidth
+                    contentHeight: textElement.paintedHeight
+                    clip: true
+                    function ensureVisible(r)
+                    {
+                        if (contentX >= r.x)
+                            contentX = r.x;
+                        else if (contentX+width <= r.x+r.width)
+                            contentX = r.x+r.width-width;
+                        if (contentY >= r.y)
+                            contentY = r.y;
+                        else if (contentY+height <= r.y+r.height)
+                            contentY = r.y+r.height-height;
+                    }
+                    TextEdit
+                    {
+                        id: textElement
+                        width: flick2.width
+                        height: flick2.height
+                        font.pointSize: 11
+                        textMargin: defMargin
+                        wrapMode: TextEdit.Wrap
+                        selectByMouse: true
+                        text: model.text
+                        onCursorRectangleChanged: flick2.ensureVisible(cursorRectangle)
+                    }
                 }
                 Rectangle
                 {
@@ -65,12 +85,43 @@ Window {
                     color: rectElement.color
                     Button
                     {
-                        id: clandarButton
+                        id: calendarButton
                         anchors.top: panelButtons.top
                         anchors.left: panelButtons.left
                         width: 100
                         height: panelButtons.height
-                        text: qsTr("Calendar")
+                        text: qsTr("Select a date")
+                        Calendar
+                        {
+                            id: popUpCalendar
+                            anchors.top: calendarButton.bottom
+                            width: 250
+                            height: popUpCalendar.width
+                            visible: false
+                            Button
+                            {
+                                id: acceptDeadLine
+                                anchors.top: popUpCalendar.bottom
+                                anchors.right: popUpCalendar.right
+                                text: qsTr("Accept")
+                                onClicked:
+                                {
+                                    calendarButton.text = Qt.formatDate(popUpCalendar.selectedDate, "dd.MM.yyyy")
+                                    popUpCalendar.visible = false
+                                }
+                            }
+                        }
+                        onClicked:
+                        {
+                            if (popUpCalendar.visible == true)
+                            {
+                                popUpCalendar.visible = false
+                            }
+                            else
+                            {
+                                popUpCalendar.visible = true
+                            }
+                        }
                     }
                     Button
                     {
@@ -87,30 +138,31 @@ Window {
                     }
                     Button
                     {
+                        property bool check: false
                         id: progressButton
                         anchors.top: panelButtons.top
                         anchors.right: panelButtons.right
                         width: 100
                         height: panelButtons.height
-                        text: qsTr("Progress")
+                        text: qsTr("Complite")
                         leftPadding: 10
+                        icon.source: "ok.png"
                         onClicked:
                         {
                             var str = textElement.text;
                             textElement.text = "";
-                            if (progressButton.checked)
-                            {
-                                textElement.font.strikeout = false;
-                                textElement.text = str;
-                                console.log("true, " + str)
-                                progressButton.checked = false;
-                            }
-                            else if (!progressButton.checked)
+                            if (check === false)
                             {
                                 textElement.font.strikeout = true;
                                 textElement.text = str;
-                                console.log("false, " + str)
+                                check = true;
                                 progressButton.checked = true;
+                            } else if (check === true)
+                            {
+                                textElement.font.strikeout = false;
+                                textElement.text = str;
+                                check = false;
+                                progressButton.checked = false
                             }
                         }
                     }
@@ -140,7 +192,7 @@ Window {
         anchors.left: root.left
         width: root.width - addButton.width
         height: 50
-        color: "transparent"
+        color: "white"
         border.color: 'black'
         Flickable
         {
@@ -166,6 +218,7 @@ Window {
                 id: textTask
                 width: flick.width
                 height: flick.height
+                z: 1
                 focus: true
                 font.pointSize: 11
                 text: ""
@@ -190,3 +243,4 @@ Window {
         }
     }
 }
+
